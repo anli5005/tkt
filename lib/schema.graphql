@@ -1,0 +1,58 @@
+scalar Binary
+scalar Data
+scalar Status
+scalar Date
+
+type User {
+    id: ID!
+    events: [Event!]!
+    event(id: ID!): Event
+}
+
+type Event {
+    id: ID!
+    meta: Data!
+    slug: String!
+    users: [User!]!
+    ticket: [Ticket!]!
+    ticket(id: ID!): Ticket
+    ticket(token: String!): Ticket
+}
+
+type Ticket {
+    id: ID!
+    meta: Data!
+    email: String
+    token: Binary!
+    event: Event!
+    status: Status!
+    log: [TicketLogItem!]!
+}
+
+type TicketLogItem {
+    ticket: Ticket!
+    status: Status!
+    date: Date!
+    user: User
+}
+
+type Query {
+    me: User
+    ticket(eventSlug: String!, ticketToken: String!): Ticket
+}
+
+type Mutation {
+    createEvent(slug: String!, meta: Data!): Event
+    updateEventMeta(id: ID!, meta: Data!): Event
+    updateEventSlug(id: ID!, string: String!): Event
+    addEventUser(id: ID!, user: ID!): Event
+    removeEventUser(id: ID!, user: ID!): Event
+    removeEvent(id: ID!)
+
+    createTicket(event: ID!, meta: Data!, email: String): Ticket
+    updateTicketMeta(event: ID!, ticket: ID!, meta: Data!): Ticket
+    updateTicketEmail(event: ID!, ticket: ID!, email: String): Ticket
+    updateTicketStatus(event: ID!, ticket: ID!, status: Status!): Ticket
+    regenerateTicketToken(event: ID!, ticket: ID!): Ticket
+    removeTicket(event: ID!, ticket: ID!)
+}
