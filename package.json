@@ -24,13 +24,15 @@
     "google-auth-library": "^5.9.2",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.1",
+    "isomorphic-unfetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "next": "9.2.1",
-    "next-apollo": "^3.1.10",
     "pg": "^7.18.1",
     "qrcode": "^1.4.4",
+    "query-string": "^6.10.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "umzug": "^2.2.0"
-  }
+  },
+  "devDependencies": {}
 }

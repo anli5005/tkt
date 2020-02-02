@@ -1,12 +1,21 @@
 import React from 'react'
 import Head from 'next/head'
+import withApollo from '../components/apollo';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import Link from 'next/link';
 
-const Home = () => (
+const Home = () => {
+  const { data } = useQuery(gql`{ me { id } }`);
+  return (
   <div>
     <Head>
       <title>Home</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
+
+    <p>ID: {data && data.me && data.me.id}</p>
+    <p><Link href="/test"><a>Test</a></Link></p>
 
     <div className="hero">
       <h1 className="title">Welcome to Next.js!</h1>
@@ -80,6 +89,7 @@ const Home = () => (
       }
     `}</style>
   </div>
-)
+  );
+}
 
-export default Home
+export default withApollo(() => <Home />);

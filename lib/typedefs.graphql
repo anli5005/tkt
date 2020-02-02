@@ -1,7 +1,3 @@
-import gql from 'graphql-tag';
-
-export default gql`
-
 scalar Data
 scalar Status
 scalar Date
@@ -59,5 +55,3 @@ type Mutation {
     regenerateTicketToken(event: ID!, ticket: ID!): Ticket
     removeTicket(event: ID!, ticket: ID!): Boolean!
 }
-
-`;
