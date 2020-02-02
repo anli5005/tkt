@@ -1,7 +1,11 @@
 import { google } from '../../../lib/auth/auth-providers';
+import config from 'config';
 
 export default (req, res) => {
     const provider = req.query.provider;
+    console.log(config.get("auth.tokenMaxAge"));
+    console.log(config.get("databaseUrl"));
+    console.log(config.get("auth.google.clientId"));
     if (provider === "google") {
         res.status(303);
         res.setHeader("Location", google().generateAuthUrl({
