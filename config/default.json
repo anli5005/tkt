@@ -1,0 +1,6 @@
+{
+    "auth": {
+        "tokenSubjectLength": 32,
+        "tokenMaxAge": 172800
+    }
+}
