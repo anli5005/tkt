@@ -1,5 +1,4 @@
 import { google } from '../../../lib/auth/auth-providers';
-import config from 'config';
 
 export default (req, res) => {
     const provider = req.query.provider;
