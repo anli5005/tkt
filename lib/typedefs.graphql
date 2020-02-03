@@ -37,8 +37,11 @@ type TicketLogItem {
 
 type Query {
     me: User
+    event(id: ID!): Event
     ticket(eventSlug: String!, ticketToken: String!): Ticket
 }
+
+scalar TicketInput
 
 type Mutation {
     createEvent(slug: String!, meta: Data!): Event
@@ -48,10 +51,10 @@ type Mutation {
     removeEventUser(id: ID!, user: ID!): Event
     removeEvent(id: ID!): Boolean!
 
-    createTicket(event: ID!, meta: Data!, email: String): Ticket
+    createTickets(event: ID!, tickets: [TicketInput!]!): [Ticket!]!
     updateTicketMeta(event: ID!, ticket: ID!, meta: Data!): Ticket
     updateTicketEmail(event: ID!, ticket: ID!, email: String): Ticket
     updateTicketStatus(event: ID!, ticket: ID!, status: Status!): Ticket
     regenerateTicketToken(event: ID!, ticket: ID!): Ticket
-    removeTicket(event: ID!, ticket: ID!): Boolean!
+    removeTickets(event: ID!, tickets: [ID!]!): Boolean!
 }
