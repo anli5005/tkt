@@ -1,7 +1,7 @@
 import withData from '../lib/next-apollo/withData';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
-import { parse } from 'query-string';
+import { parse } from 'cookie';
 
 let makeSsrLink;
 if (typeof window === "undefined") {
