@@ -9,7 +9,7 @@ function Manage() {
         }
     }`)
     if (data) {
-        return (<p>Your user ID: {data.me.id}</p>)
+        return (<p>Your user ID: {data.me && data.me.id}</p>)
     } else if (error) {
         return (<p>Error!</p>);
     } else {
