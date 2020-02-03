@@ -4,7 +4,7 @@ export default (req, res) => {
     const provider = req.query.provider;
     if (provider === "google") {
         res.status(303);
-        res.setHeader("Location", google().generateAuthUrl({
+        res.setHeader("Location", google(req).generateAuthUrl({
             access_type: "offline",
             scope: "https://www.googleapis.com/auth/userinfo.profile"
         }));
