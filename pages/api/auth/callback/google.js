@@ -6,7 +6,7 @@ export default async (req, res) => {
         res.status(400).json({error: "missing_code"});
     }
 
-    const client = google();
+    const client = google(req);
     let payload;
     try {
         const response = await client.getToken(req.query.code);
