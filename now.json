@@ -1,8 +1,10 @@
 {
     "env": {
         "DATABASE_URL": "@tkt-db-url",
+        "DATABASE_MAX_CONNECTIONS": "4",
         "JWT_SECRET": "@tkt-jwt-secret",
         "PROD_DATABASE_URL": "@tkt-prod-db-url",
+        "PROD_DATABASE_MAX_CONNECTIONS": "4",
         "PROD_JWT_SECRET": "@tkt-prod-jwt-secret",
         "GOOGLE_CLIENT_ID": "@tkt-google-client-id",
         "GOOGLE_CLIENT_SECRET": "@tkt-google-client-secret"
