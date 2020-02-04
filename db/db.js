@@ -9,6 +9,4 @@ poolConfig.max = parseInt(process.env.NOW_GITHUB_COMMIT_REF === "master" ? proce
 
 let pool = new Pool(poolConfig);
 
-console.log("Creating DB");
-
 module.exports = pool;
