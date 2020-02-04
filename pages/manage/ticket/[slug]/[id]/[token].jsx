@@ -7,7 +7,7 @@ import { Typography as T } from '@material-ui/core';
 import Link from 'next/link';
 import { Fragment } from 'react';
 
-function Ticket({qrCode}) {
+function ManageTicket() {
     const {query: {slug, id, token}} = useRouter();
     const {data, loading, error} = useQuery(GET_TICKET_BY_TOKEN, {variables: {
         eventID: id,
@@ -16,8 +16,8 @@ function Ticket({qrCode}) {
     }});
 
     return <Page>
-        <T><Link href="/manage/event/[id]" as={`/manage/event/${data.ticket.event.id}`}><a>{data.ticket.event.slug}</a></Link></T>
         {data && (data.ticket ? <Fragment>
+            <T><Link href="/manage/event/[id]" as={`/manage/event/${data.ticket.event.id}`}><a>{data.ticket.event.slug}</a></Link></T>
             <T variant="h1">Ticket {data.ticket.id}</T>
             <T><strong>Name:</strong> {data.ticket.meta.name}</T>
             <T><strong>Email:</strong> {data.ticket.email}</T>
@@ -27,4 +27,4 @@ function Ticket({qrCode}) {
     </Page>
 }
 
-export default withApollo(Ticket)
+export default withApollo(() => <ManageTicket />)
