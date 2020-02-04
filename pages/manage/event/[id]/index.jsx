@@ -35,7 +35,7 @@ function Event() {
                                 <TableCell>{row.email}</TableCell>
                                 <TableCell>{row.status}</TableCell>
                                 <TableCell>
-                                    <Link href="/ticket/[event]/[token]" as={`/ticket/${data.event.slug}-${data.event.id}/${row.token}`}>
+                                    <Link href="/ticket/[slug]/[id]/[token]" as={`/ticket/${data.event.slug}/${data.event.id}/${row.token}`}>
                                         <a>View Ticket</a>
                                     </Link>
                                 </TableCell>
