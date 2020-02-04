@@ -9,7 +9,7 @@ const server = new ApolloServer({typeDefs, resolvers, context({req}) {
         context.token = req.headers.authorization.slice(prefix.length);
     }
     return context;
-}});
+}, uploads: false});
 
 export const config = {api: {bodyParser: false}};
 export default server.createHandler({path: "/api"});

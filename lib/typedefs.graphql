@@ -4,11 +4,10 @@ scalar Date
 
 type User {
     id: ID!
-    events: [Event!]!
-    event(id: ID!): Event
+    events: [FullEvent!]!
 }
 
-type Event {
+type FullEvent {
     id: ID!
     meta: Data!
     slug: String!
@@ -16,6 +15,12 @@ type Event {
     tickets: [Ticket!]!
     ticket(id: ID!): Ticket
     ticketWith(token: String!): Ticket
+}
+
+type Event {
+    id: ID!
+    meta: Data!
+    slug: String!
 }
 
 type Ticket {
@@ -37,8 +42,8 @@ type TicketLogItem {
 
 type Query {
     me: User
-    event(id: ID!): Event
-    ticket(eventSlug: String!, ticketToken: String!): Ticket
+    event(id: ID!): FullEvent
+    ticket(eventID: ID!, eventSlug: String!, ticketToken: String!): Ticket
 }
 
 scalar TicketInput
