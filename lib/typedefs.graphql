@@ -14,7 +14,6 @@ type FullEvent {
     users: [User!]!
     tickets: [Ticket!]!
     ticket(id: ID!): Ticket
-    ticketWith(token: String!): Ticket
 }
 
 type Event {
