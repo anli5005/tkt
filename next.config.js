@@ -8,6 +8,12 @@ module.exports = {
             loader: 'graphql-tag/loader'
         });
 
+        config.module.rules.push({
+            test: /\.(handlebars|hbs)$/,
+            exclude: /node_modules/,
+            loader: 'handlebars-loader'
+        });
+
         return config;
     }
 };

@@ -55,9 +55,9 @@ type Mutation {
     removeEventUser(id: ID!, user: ID!): Event
     removeEvent(id: ID!): Boolean!
 
-    createTickets(event: ID!, tickets: [TicketInput!]!): [Ticket!]
+    createTickets(event: ID!, tickets: [TicketInput!]!, send: Boolean = false): [Ticket!]
     updateTicketMeta(event: ID!, ticket: ID!, meta: Data!): Ticket
-    updateTicketEmail(event: ID!, ticket: ID!, email: String): Ticket
+    updateTicketEmail(event: ID!, ticket: ID!, email: String, send: Boolean = false): Ticket
     updateTicketStatus(event: ID!, ticket: ID!, status: Status!): Ticket
     regenerateTicketToken(event: ID!, ticket: ID!): Ticket
     removeTickets(event: ID!, tickets: [ID!]!): Boolean!
