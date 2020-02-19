@@ -11,10 +11,12 @@ function Event() {
     const {query: {id}} = useRouter();
     const {data, loading, error} = useQuery(GET_EVENT, {variables: {id}})
 
+    const date = {event: {slug: ""}};
+
     return <Page>
         <T><Link href="/manage"><a>Back</a></Link></T>
         {data && (data.event ? <Fragment>
-            <T variant="h1">{data.event.slug}</T>
+            <T variant="h1">{date.event.slug}</T>
             <T><Link href="/manage/event/[id]/users" as={`/manage/event/${id}/users`}><a>Manage Users</a></Link></T>
 
             <T variant="h2">Tickets</T>
