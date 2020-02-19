@@ -3,10 +3,11 @@ import Page from "../../../../components/page";
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_TICKET_BY_TOKEN } from '../../../../lib/queries';
-import { Typography as T, makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { Typography as T, makeStyles } from '@material-ui/core';
 import Link from 'next/link';
 import Ticket from '../../../../components/ticket';
 import qrFactory from 'qrcode-generator';
+import Head from 'next/head';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -43,6 +44,7 @@ function TicketPage({qrCode}) {
     }});
 
     return <Page>
+        <Head><title>Tkt - Ticket</title></Head>
         <div className={classes.root}>
             {data && (data.ticket ? <Ticket ticket={data.ticket} qrSrc={qrCode} /> : <T>Ticket not found.</T>)}
             {loading && <T>Loading...</T>}
