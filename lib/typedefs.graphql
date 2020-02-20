@@ -1,5 +1,4 @@
 scalar Data
-scalar Status
 scalar Date
 
 type User {
@@ -28,13 +27,13 @@ type Ticket {
     email: String
     token: String!
     event: Event!
-    status: Status!
+    status: Int!
     log: [TicketLogItem!]!
 }
 
 type TicketLogItem {
     ticket: Ticket!
-    status: Status!
+    status: Int!
     date: Date!
     user: User
 }
@@ -58,7 +57,7 @@ type Mutation {
     createTickets(event: ID!, tickets: [TicketInput!]!, send: Boolean = false): [Ticket!]
     updateTicketMeta(event: ID!, ticket: ID!, meta: Data!): Ticket
     updateTicketEmail(event: ID!, ticket: ID!, email: String, send: Boolean = false): Ticket
-    updateTicketStatus(event: ID!, ticket: ID!, status: Status!): Ticket
+    updateTicketStatus(event: ID!, ticket: ID!, status: Int!): Ticket
     regenerateTicketToken(event: ID!, ticket: ID!): Ticket
     removeTickets(event: ID!, tickets: [ID!]!): Boolean!
 }

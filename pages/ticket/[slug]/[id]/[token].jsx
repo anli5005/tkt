@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Ticket from '../../../../components/ticket';
 import qrFactory from 'qrcode-generator';
 import Head from 'next/head';
+import { useMemo } from 'react';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function TicketPage({qrCode}) {
+function TicketPage() {
     const classes = useStyles();
 
     const {query: {slug, id, token}} = useRouter();
@@ -42,6 +43,15 @@ function TicketPage({qrCode}) {
         eventSlug: slug,
         ticketToken: token
     }});
+
+    const qrCode = useMemo(() => {
+        if (data && data.ticket) {
+            const qr = qrFactory(0, "M");
+            qr.addData(`https://tkt.anli.dev/manage/event/${id}/${data.ticket.id}?token=${token}`);
+            qr.make();
+            return qr.createDataURL(4);
+        }
+    }, [data && data.ticket && data.ticket.id]);
 
     return <Page>
         <Head><title>Tkt - Ticket</title></Head>
@@ -53,12 +63,5 @@ function TicketPage({qrCode}) {
         </div>
     </Page>
 }
-
-TicketPage.getInitialProps = ({query: {slug, id, token}}) => {
-    const qr = qrFactory(0, "M");
-    qr.addData(`https://tkt.anli.dev/manage/ticket/${slug}/${id}/${token}`);
-    qr.make();
-    return {qrCode: qr.createDataURL(4)};
-};
 
 export default withApollo(TicketPage)

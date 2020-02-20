@@ -7,6 +7,6 @@ export default () => {
         <Head><title>Tkt</title></Head>
         <h1>Tkt</h1>
         <p>A ticketing platform. Still very much WIP.</p>
-        <Button variant="contained" href="/api/auth/signin?provider=google">Sign in with Google</Button>
+        <Button variant="outlined" href="/api/auth/signin?provider=google">Sign in with Google</Button>
     </div>);
 }
