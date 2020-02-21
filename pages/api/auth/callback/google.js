@@ -1,7 +1,13 @@
 import { google } from '../../../../lib/auth/auth-providers';
 import authenticateUser from '../../../../lib/auth/authenticate-user';
+import verifyState from '../../../../lib/auth/verify-state';
 
 export default async (req, res) => {
+    const { valid, redirect } = await verifyState(req, res);
+    if (!valid) {
+        res.status(400).json({error: "invalid_state"});
+    }
+
     if (!req.query.code) {
         res.status(400).json({error: "missing_code"});
     }
@@ -24,5 +30,5 @@ export default async (req, res) => {
         return;
     }
 
-    return await authenticateUser({authType: "google", subject: payload.sub}, res);
+    return await authenticateUser({authType: "google", subject: payload.sub}, res, redirect);
 };

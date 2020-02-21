@@ -15,6 +15,7 @@ function NewEvent() {
         createEvent(slug: $slug, meta: $meta) {
             id
             slug
+            meta
         }
     }
     `, {

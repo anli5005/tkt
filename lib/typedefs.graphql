@@ -42,6 +42,7 @@ type Query {
     me: User
     event(id: ID!): FullEvent
     ticket(eventID: ID!, eventSlug: String!, ticketToken: String!): Ticket
+    invite(invite: String!): Event
 }
 
 scalar TicketInput
@@ -53,6 +54,8 @@ type Mutation {
     addEventUser(id: ID!, user: ID!): Event
     removeEventUser(id: ID!, user: ID!): Event
     removeEvent(id: ID!): Boolean!
+
+    joinEvent(invite: String!): Event
 
     createTickets(event: ID!, tickets: [TicketInput!]!, send: Boolean = false): [Ticket!]
     updateTicketMeta(event: ID!, ticket: ID!, meta: Data!): Ticket
