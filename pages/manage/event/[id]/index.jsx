@@ -37,7 +37,7 @@ function Event() {
                                 <TableCell>{row.email}</TableCell>
                                 <TableCell>{row.status === 1 ? <strong>Checked In</strong> : "Checked Out"}</TableCell>
                                 <TableCell>
-                                    <Link href="/manage/event/[id]/[ticket]" as={`/manage/event/${data.event.id}/${row.id}?token=${row.token}`} passHref>
+                                    <Link href={`/manage/event/[id]/[ticket]?token=${row.token}`} as={`/manage/event/${data.event.id}/${row.id}?token=${row.token}`} passHref>
                                         <Button variant="outlined" color="secondary">Manage Ticket</Button>
                                     </Link>
                                 </TableCell>
