@@ -61,9 +61,9 @@ function ManageTicket() {
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
                         <T>More Data</T>
                     </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        {Object.keys(data.event.ticket.meta).map(key => <T key={key}><strong>{key}</strong>: <code>{data.event.ticket.meta[key]}</code></T>)}
-                    </ExpansionPanelDetails>
+                    <ExpansionPanelDetails><ul>
+                        {Object.keys(data.event.ticket.meta).map(key => <li><T key={key}><strong>{key}</strong>: <code>{data.event.ticket.meta[key]}</code></T></li>)}
+                    </ul></ExpansionPanelDetails>
                 </ExpansionPanel>}
                 {data.event.ticket.status !== 1 ?
                     <Button variant="contained" color="primary" onClick={() => updateStatus({
