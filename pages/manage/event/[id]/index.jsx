@@ -3,7 +3,7 @@ import Page from '../../../../components/page';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_EVENT } from '../../../../lib/queries';
-import { Typography as T, Table, Paper, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { Typography as T, Table, Paper, TableContainer, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
 import { Fragment } from 'react';
 import Link from 'next/link';
 
@@ -14,12 +14,12 @@ function Event() {
     const date = {event: {slug: ""}};
 
     return <Page>
-        <T><Link href="/manage"><a>Back</a></Link></T>
+        <T><Link href="/manage"><a>All Events</a></Link></T>
         {data && (data.event ? <Fragment>
-            <T variant="h1">{date.event.slug}</T>
-            <T><Link href="/manage/event/[id]/users" as={`/manage/event/${id}/users`}><a>Manage Users</a></Link></T>
+            <T variant="h1">{data.event.meta.displayName || data.event.slug}</T>
+            {/* <T><Link href="/manage/event/[id]/users" as={`/manage/event/${id}/users`}><a>Manage Users</a></Link></T> */}
 
-            <T variant="h2">Tickets</T>
+            <T variant="h3">Tickets</T>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -27,7 +27,7 @@ function Event() {
                             <TableCell>Name</TableCell>
                             <TableCell>Email</TableCell>
                             <TableCell>Status</TableCell>
-                            <TableCell>Ticket</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -35,10 +35,10 @@ function Event() {
                             <TableRow key={row.id}>
                                 <TableCell>{row.meta.name}</TableCell>
                                 <TableCell>{row.email}</TableCell>
-                                <TableCell>{row.status}</TableCell>
+                                <TableCell>{row.status === 1 ? <strong>Checked In</strong> : "Checked Out"}</TableCell>
                                 <TableCell>
-                                    <Link href="/ticket/[slug]/[id]/[token]" as={`/ticket/${data.event.slug}/${data.event.id}/${row.token}`}>
-                                        <a>View Ticket</a>
+                                    <Link href="/manage/event/[id]/[ticket]" as={`/manage/event/${data.event.id}/${row.id}?token=${row.token}`} passHref>
+                                        <Button variant="outlined" color="secondary">Manage Ticket</Button>
                                     </Link>
                                 </TableCell>
                             </TableRow>

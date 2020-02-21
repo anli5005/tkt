@@ -47,8 +47,8 @@ function ManageTicket() {
         </Head>
         <Container>
             {data && ((data.event && data.event.ticket) ? <Fragment>
-                <T><Link href="/manage/event/[id]" as={`/manage/event/${id}`}><a>{data.event.slug}</a></Link></T>
-                <T variant="h3">Manage Ticket</T>
+                <Link href="/manage/event/[id]" as={`/manage/event/${id}`} passHref><Button color="secondary">Back to Ticket List</Button></Link>
+                <T variant="h3">{data.event.meta.displayName || data.event.slug} - Manage Ticket</T>
                 <T>ID: {data.event.ticket.id}</T>
                 {token !== data.event.ticket.token && <Paper variant="outlined">
                     <T variant="h5">Unverified link</T>
