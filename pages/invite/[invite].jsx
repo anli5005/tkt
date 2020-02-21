@@ -3,8 +3,9 @@ import withApollo from '../../components/apollo';
 import Router, { useRouter } from 'next/router';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_INVITE } from '../../lib/queries';
-import { Typography, Button, Link } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import gql from 'graphql-tag';
+import Link from 'next/link';
 import Page from '../../components/page';
 
 export default withApollo(() => {
