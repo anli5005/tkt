@@ -50,7 +50,7 @@ function ManageTicket() {
                 <Link href="/manage/event/[id]" as={`/manage/event/${id}`} passHref><Button color="secondary">Back to Ticket List</Button></Link>
                 <T variant="h3">{data.event.meta.displayName || data.event.slug} - Manage Ticket</T>
                 <T>ID: {data.event.ticket.id}</T>
-                {token !== data.event.ticket.token && <Paper variant="outlined">
+                {(token && token.replace(/ /g, "+") !== data.event.ticket.token) && <Paper variant="outlined">
                     <T variant="h5">Unverified link</T>
                     <T>The link you've used to access this page may be inauthentic. If you're scanning someone in, ask the ticket holder to check their email and obtain the latest version of the ticket.</T>
                 </Paper>}
