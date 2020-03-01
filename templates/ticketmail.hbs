@@ -1,4 +1,4 @@
-<p>Hi{{#if ticket.meta.name}} {{ticket.meta.name}}{{/if}}!</p>
+<p>Hi{{#if includeName}}{{#if ticket.meta.name}} {{ticket.meta.name}}{{/if}}{{/if}}!</p>
 <p>Here's {{ticketRecipient}} ticket for <strong>{{#if event.meta.displayName}}{{event.meta.displayName}}{{else}}{{event.slug}}{{/if}}</strong>:</p>
 <p><a href="{{url}}">{{url}}</a></p>
 <p>Open the link and have a staff member scan the QR code. QR codes can only be used once.</p>
