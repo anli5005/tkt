@@ -1,5 +1,6 @@
 <p>Hi{{#if ticket.meta.name}} {{ticket.meta.name}}{{/if}}!</p>
-<p>Here's your ticket for <strong>{{#if event.meta.displayName}}{{event.meta.displayName}}{{else}}{{event.slug}}{{/if}}</strong>:</p>
+<p>Here's {{ticketRecipient}} ticket for <strong>{{#if event.meta.displayName}}{{event.meta.displayName}}{{else}}{{event.slug}}{{/if}}</strong>:</p>
 <p><a href="{{url}}">{{url}}</a></p>
 <p>Open the link and have a staff member scan the QR code. QR codes can only be used once.</p>
+{{#if auxiliaryContent}}{{{auxiliaryContent}}}{{/if}}
 <p><small>This email and ticket were created using <a href="https://tkt.anli.dev">Tkt</a>.</small></p>
