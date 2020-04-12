@@ -48,6 +48,7 @@ export default function App({Component, pageProps}) {
     return <Fragment>
         <Head>
             <link rel="stylesheet" href="https://use.typekit.net/yal5ubs.css" />
+            <link rel="shortcut icon" href="/favicon.ico" />
             <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         </Head>
         <ThemeProvider theme={theme}>
