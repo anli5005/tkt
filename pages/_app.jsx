@@ -2,6 +2,10 @@ import { useEffect, Fragment, useMemo } from "react";
 import Head from "next/head";
 import { CssBaseline, ThemeProvider, createMuiTheme, useMediaQuery } from "@material-ui/core";
 
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+config.autoAddCss = false;
+
 const systemFont = [
     '-apple-system',
     'BlinkMacSystemFont',
@@ -45,6 +49,8 @@ export default function App({Component, pageProps}) {
         }
     }), [prefersDarkMode]);
 
+    const body = <Component {...pageProps} />;
+
     return <Fragment>
         <Head>
             <link rel="stylesheet" href="https://use.typekit.net/yal5ubs.css" />
@@ -53,7 +59,7 @@ export default function App({Component, pageProps}) {
         </Head>
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Component {...pageProps} />
+            {Component.Layout ? <Component.Layout>{body}</Component.Layout> : body}
         </ThemeProvider>
     </Fragment>
 }

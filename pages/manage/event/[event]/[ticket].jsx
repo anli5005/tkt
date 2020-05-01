@@ -9,9 +9,10 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
+import manageLayout from '../../../../components/manage-layout';
 
 function ManageTicket() {
-    const {query: {id, ticket, token}} = useRouter();
+    const {query: {event: id, ticket, token}} = useRouter();
     const {data, loading, error} = useQuery(GET_TICKET_BY_ID, {variables: {
         eventID: id,
         ticketID: ticket
@@ -47,7 +48,7 @@ function ManageTicket() {
         </Head>
         <Container>
             {data && ((data.event && data.event.ticket) ? <Fragment>
-                <Link href="/manage/event/[id]" as={`/manage/event/${id}`} passHref><Button color="secondary">Back to Ticket List</Button></Link>
+                <Link href="/manage/event/[event]" as={`/manage/event/${id}`} passHref><Button color="secondary">Back to Ticket List</Button></Link>
                 <T variant="h3">{data.event.meta.displayName || data.event.slug} - Manage Ticket</T>
                 <T>ID: {data.event.ticket.id}</T>
                 {(token && token.replace(/ /g, "+") !== data.event.ticket.token) && <Paper variant="outlined">
@@ -80,4 +81,6 @@ function ManageTicket() {
     </Page>
 }
 
-export default withApollo(() => <ManageTicket />)
+const result = withApollo(() => <ManageTicket />);
+result.Layout = manageLayout;
+export default result;

@@ -8,6 +8,7 @@ import { Button, Typography as T } from '@material-ui/core';
 import { Formik, Form } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { GET_ME } from '../../../lib/queries';
+import manageLayout from '../../../components/manage-layout';
 
 function NewEvent() {
     const [addEvent] = useMutation(gql`
@@ -45,7 +46,7 @@ function NewEvent() {
                 if (!createEvent) {
                     throw new Error("Event is missing");
                 }
-                Router.push("/manage/event/[id]", `/manage/event/${createEvent.id}`)
+                Router.push("/manage/event/[event]", `/manage/event/${createEvent.id}`)
             } catch (e) {
                 console.error(e);
                 setErrors({slug: "Failed to add event."});
@@ -58,4 +59,6 @@ function NewEvent() {
     </Page>
 }
 
-export default withApollo(() => <NewEvent />);
+const result = withApollo(() => <NewEvent />);
+result.Layout = manageLayout;
+export default result;

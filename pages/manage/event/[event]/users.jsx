@@ -8,7 +8,7 @@ import { GET_EVENT_USERS } from '../../../../lib/queries';
 import Link from 'next/link';
 
 function Event() {
-    const {query: {id}} = useRouter();
+    const {query: {event: id}} = useRouter();
     const {data, loading, error} = useQuery(GET_EVENT_USERS, {variables: {id}})
 
     return <Page>

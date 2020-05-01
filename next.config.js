@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-module.exports = {
+module.exports = require("@zeit/next-css")({
     webpack(config) {
         config.module.rules.push({
             test: /\.(graphql|gql)$/,
@@ -16,4 +16,4 @@ module.exports = {
 
         return config;
     }
-};
+});
