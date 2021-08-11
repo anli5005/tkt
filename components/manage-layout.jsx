@@ -29,7 +29,8 @@ const useStyles = makeStyles(theme => ({
         flexDirection: "column"
     },
     children: {
-        flexGrow: 1
+        flexGrow: 1,
+        padding: theme.spacing(4)
     },
     brand: {
         fontSize: "64px",
@@ -56,13 +57,14 @@ const useStyles = makeStyles(theme => ({
     },
     bold: {
         fontWeight: "bold",
-        lineHeight: 1
+        lineHeight: 1,
+        fontSize: "10px"
     },
     loadingOpacity: {
         opacity: 0.5
     },
     uuid: {
-        fontSize: "50%"
+        fontSize: "80%"
     },
     marginIcon: {
         marginRight: "0.5em"
@@ -132,7 +134,7 @@ function ManageLayout({children}) {
                 <Box className={classes.accountDetails}>
                     {
                         data ? (data.me ? <Fragment>
-                            <Typography variant="subtitle1" className={classes.bold}>User</Typography>
+                            <Typography className={classes.bold}>User ID</Typography>
                             <Typography className={classes.uuid}>{data.me.id}</Typography>
                         </Fragment> : <Typography>Not signed in</Typography>) : (
                             error ?

@@ -15,12 +15,10 @@ const Event = withApollo(() => {
     const date = {event: {slug: ""}};
 
     return <Page>
-        <T><Link href="/manage"><a>All Events</a></Link></T>
         {data && (data.event ? <Fragment>
             <T variant="h1">{data.event.meta.displayName || data.event.slug}</T>
-            {/* <T><Link href="/manage/event/[event]/users" as={`/manage/event/${id}/users`}><a>Manage Users</a></Link></T> */}
-
-            <T variant="h3">Tickets</T>
+            <T variant="h3" style={{paddingBottom: "32px"}}>Tickets</T>
+            <Link href="/manage/event/[event]/newticket" as={`/manage/event/${id}/newticket`} passHref><Button style={{ marginBottom: "32px" }} variant="contained" color="primary">New Ticket</Button></Link>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -39,7 +37,7 @@ const Event = withApollo(() => {
                                 <TableCell>{row.status === 1 ? <strong>Checked In</strong> : "Checked Out"}</TableCell>
                                 <TableCell>
                                     <Link href={`/manage/event/[event]/[ticket]?token=${row.token}`} as={`/manage/event/${data.event.id}/${row.id}?token=${row.token}`} passHref>
-                                        <Button variant="outlined" color="secondary">Manage Ticket</Button>
+                                        <Button variant="outlined" color="primary">Manage Ticket</Button>
                                     </Link>
                                 </TableCell>
                             </TableRow>

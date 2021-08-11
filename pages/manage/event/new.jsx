@@ -32,7 +32,6 @@ function NewEvent() {
     });
 
     return <Page>
-        <T><Link href="/manage"><a>Back</a></Link></T>
         <T variant="h1">New Event</T>
         <Formik initialValues={{slug: ""}} validate={values => {
             const errors = {};
@@ -53,8 +52,8 @@ function NewEvent() {
                 setSubmitting(false);
             }
         }}>{({submitForm, isSubmitting, isValid}) => <Form>
-            <TextField name="slug" type="text" label="Slug" required />
-            <Button variant="outlined" disabled={isSubmitting || !isValid} onClick={submitForm}>Add</Button>
+            <TextField style={{ verticalAlign: "top" }} name="slug" type="text" label="Slug" required />
+            <Button style={{verticalAlign: "top", marginLeft: "8px", marginTop: "12px"}} variant="outlined" disabled={isSubmitting || !isValid} onClick={submitForm}>Add</Button>
         </Form>}</Formik>
     </Page>
 }

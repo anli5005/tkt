@@ -48,7 +48,7 @@ function ManageTicket() {
         </Head>
         <Container>
             {data && ((data.event && data.event.ticket) ? <Fragment>
-                <Link href="/manage/event/[event]" as={`/manage/event/${id}`} passHref><Button color="secondary">Back to Ticket List</Button></Link>
+                <Link href="/manage/event/[event]" as={`/manage/event/${id}`} passHref><Button variant="outlined" color="primary">Back to Ticket List</Button></Link>
                 <T variant="h3">{data.event.meta.displayName || data.event.slug} - Manage Ticket</T>
                 <T>ID: {data.event.ticket.id}</T>
                 {(token && token.replace(/ /g, "+") !== data.event.ticket.token) && <Paper variant="outlined">
@@ -58,7 +58,7 @@ function ManageTicket() {
                 {data.event.ticket.meta.name && <T><strong>Name:</strong> {data.event.ticket.meta.name}</T>}
                 {data.event.ticket.email && <T><strong>Email:</strong> {data.event.ticket.email}</T>}
                 <T><strong>Status:</strong> {statusString}</T>
-                {Object.keys(data.event.ticket.meta).length > 0 && <ExpansionPanel>
+                {Object.keys(data.event.ticket.meta).length > 0 && <ExpansionPanel style={{ marginTop: "16px", marginBottom: "16px"}}>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
                         <T>More Data</T>
                     </ExpansionPanelSummary>
@@ -74,7 +74,12 @@ function ManageTicket() {
                         variables: {event: id, ticket, status: 0}
                     })}>Check Out</Button>
                 }
-            </Fragment> : <T>Ticket not found.</T>)}
+                <T style={{paddingTop: "32px", paddingBottom: "8px"}}>Ticket URL: https://tkt.anli.dev/ticket/{encodeURIComponent(data.event.slug)}/{encodeURIComponent(data.event.id)}/{encodeURIComponent(data.event.ticket.token)}</T>
+                <Button variant="outlined" target="_blank" href={`https://tkt.anli.dev/ticket/${encodeURIComponent(data.event.slug)}/${encodeURIComponent(data.event.id)}/${encodeURIComponent(data.event.ticket.token)}`}>View</Button>
+            </Fragment> : <Fragment>
+                <T>Unable to retrieve ticket. You may need to sign in.</T>
+                <Button variant="outlined" href="/api/auth/signin?provider=google">Sign in with Google</Button>
+            </Fragment>)}
             {loading && <T>Loading...</T>}
             {error && <T>Error: {error.message}</T>}
         </Container>
