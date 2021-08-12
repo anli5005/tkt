@@ -1,11 +1,11 @@
 import Brand from './brand';
-import { Drawer, Box, makeStyles, Divider, ButtonBase, Typography, Menu, MenuItem, ListItemIcon, List, ListItem, Select, InputLabel, FormControl } from '@material-ui/core';
+import { Drawer, Box, makeStyles, Divider, ButtonBase, Typography, Menu, MenuItem, ListItemIcon, List, ListItem, Select, InputLabel, FormControl, Hidden, IconButton } from '@material-ui/core';
 import { Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ME } from '../lib/queries';
 import withApollo from './apollo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp, faSignOutAlt, faHome, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp, faSignOutAlt, faHome, faPlusCircle, faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useRef } from 'react';
 import signOut from '../lib/signout';
@@ -103,53 +103,72 @@ function ManageLayout({children}) {
     const {query: {event}, route} = useRouter();
 
     const current = event || (route === "/manage/event/new" ? "new" : "");
-    
-    return <Box className={classes.root}>
-        <Drawer variant="persistent" anchor="left" open={true} className={classes.drawer} classes={{paper: classes.drawerPaper}}>
-            <Box className={classes.brand}><Brand /></Box>
-            <FormControl>
-                <Select className={classes.eventSelect} id="events-menu" value={current} displayEmpty onChange={event => {
-                    if (event.target.value === "new") {
-                        Router.push("/manage/event/new");
-                    } else if (event.target.value.length > 0) {
-                        Router.push("/manage/event/[event]", `/manage/event/${event.target.value}`)
-                    } else {
-                        Router.push("/manage");
-                    }
-                }}>
-                    <MenuItem value=""><FontAwesomeIcon className={classes.marginIcon} icon={faHome} /> Dashboard</MenuItem>
-                    {(data && data.me && data.me.events.map(event => {
-                        return <MenuItem key={event.id} value={event.id}>
-                            {(event.meta && event.meta.displayName) || event.slug}
-                        </MenuItem>;
-                    })) || <MenuItem disabled value={event}>{loading ? "Loading..." : "Error!"}</MenuItem>}
-                    <MenuItem value="new"><FontAwesomeIcon className={classes.marginIcon} icon={faPlusCircle} /> New Event</MenuItem>
-                </Select>
-            </FormControl>
-            <Box className={classes.filler}></Box>
-            <Divider />
-            <ButtonBase aria-controls="account-menu" aria-haspopup="true" onClick={event => {
-                    setUserMenu(accountButton.current || event.target);
-                }} className={classes.account} ref={accountButton} focusRipple>
-                <Box className={classes.accountDetails}>
-                    {
-                        data ? (data.me ? <Fragment>
-                            <Typography className={classes.bold}>User ID</Typography>
-                            <Typography className={classes.uuid}>{data.me.id}</Typography>
-                        </Fragment> : <Typography>Not signed in</Typography>) : (
-                            error ?
+    const [mobileOpen, setMobileOpen] = useState(false);
+
+    const drawer = <>
+        <Box className={classes.brand}><Brand /></Box>
+        <FormControl>
+            <Select className={classes.eventSelect} id="events-menu" value={current} displayEmpty onChange={event => {
+                if (event.target.value === "new") {
+                    Router.push("/manage/event/new");
+                } else if (event.target.value.length > 0) {
+                    Router.push("/manage/event/[event]", `/manage/event/${event.target.value}`)
+                } else {
+                    Router.push("/manage");
+                }
+            }}>
+                <MenuItem value=""><FontAwesomeIcon className={classes.marginIcon} icon={faHome} /> Dashboard</MenuItem>
+                {(data && data.me && data.me.events.map(event => {
+                    return <MenuItem key={event.id} value={event.id}>
+                        {(event.meta && event.meta.displayName) || event.slug}
+                    </MenuItem>;
+                })) || <MenuItem disabled value={event}>{loading ? "Loading..." : "Error!"}</MenuItem>}
+                <MenuItem value="new"><FontAwesomeIcon className={classes.marginIcon} icon={faPlusCircle} /> New Event</MenuItem>
+            </Select>
+        </FormControl>
+        <Box className={classes.filler}></Box>
+        <Divider />
+        <ButtonBase aria-controls="account-menu" aria-haspopup="true" onClick={event => {
+            setUserMenu(accountButton.current || event.target);
+        }} className={classes.account} ref={accountButton} focusRipple>
+            <Box className={classes.accountDetails}>
+                {
+                    data ? (data.me ? <Fragment>
+                        <Typography className={classes.bold}>User ID</Typography>
+                        <Typography className={classes.uuid}>{data.me.id}</Typography>
+                    </Fragment> : <Typography>Not signed in</Typography>) : (
+                        error ?
                             <Typography>Error loading user data</Typography> :
                             <Typography className={classes.loadingOpacity}>Loading...</Typography>
-                        )
-                    }
-                </Box>
-                <FontAwesomeIcon icon={faChevronUp} />
-            </ButtonBase>
-            <Menu id="account-menu" anchorEl={userMenu} keepMounted open={!!userMenu} onClose={() => setUserMenu(null)}>
-                <MenuItem onClick={signOut}><ListFAIcon icon={faSignOutAlt} /> Sign out</MenuItem>
-            </Menu>
-        </Drawer>
-        <Box className={classes.children}>{children}</Box>
+                    )
+                }
+            </Box>
+            <FontAwesomeIcon icon={faChevronUp} />
+        </ButtonBase>
+        <Menu id="account-menu" anchorEl={userMenu} keepMounted open={!!userMenu} onClose={() => setUserMenu(null)}>
+            <MenuItem onClick={signOut}><ListFAIcon icon={faSignOutAlt} /> Sign out</MenuItem>
+        </Menu>
+    </>;
+    
+    return <Box className={classes.root}>
+        <Hidden smUp implementation="css">
+            <Drawer variant="temporary" anchor="left" open={mobileOpen} onClose={() => setMobileOpen(false)} className={classes.drawer} classes={{ paper: classes.drawerPaper }}>
+                {drawer}
+            </Drawer>
+        </Hidden>
+        <Hidden smDown implementation="css">
+            <Drawer variant="persistent" anchor="left" open={true} className={classes.drawer} classes={{ paper: classes.drawerPaper }}>
+                {drawer}
+            </Drawer>
+        </Hidden>
+        <Box className={classes.children}>
+            <Hidden smUp>
+                <IconButton aria-label="menu" onClick={() => setMobileOpen(true)}>
+                    <FontAwesomeIcon icon={faBars} />
+                </IconButton>
+            </Hidden>
+            {children}
+        </Box>
     </Box>;
 }
 
