@@ -3,13 +3,13 @@ import Page from "../../../../components/page";
 import { useRouter } from 'next/router';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_TICKET_BY_ID } from '../../../../lib/queries';
-import { Typography as T, Container, Paper, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Button } from '@mui/material';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Typography as T, Container, Paper, Button, AccordionSummary, AccordionDetails, Accordion } from '@mui/material';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import manageLayout from '../../../../components/manage-layout';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function ManageTicket() {
     const {query: {event: id, ticket, token}} = useRouter();
@@ -58,14 +58,14 @@ function ManageTicket() {
                 {data.event.ticket.meta.name && <T><strong>Name:</strong> {data.event.ticket.meta.name}</T>}
                 {data.event.ticket.email && <T><strong>Email:</strong> {data.event.ticket.email}</T>}
                 <T><strong>Status:</strong> {statusString}</T>
-                {Object.keys(data.event.ticket.meta).length > 0 && <ExpansionPanel style={{ marginTop: "16px", marginBottom: "16px"}}>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
+                {Object.keys(data.event.ticket.meta).length > 0 && <Accordion style={{ marginTop: "16px", marginBottom: "16px"}}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
                         <T>More Data</T>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails><ul>
-                        {Object.keys(data.event.ticket.meta).map(key => <li><T key={key}><strong>{key}</strong>: <code>{data.event.ticket.meta[key]}</code></T></li>)}
-                    </ul></ExpansionPanelDetails>
-                </ExpansionPanel>}
+                    </AccordionSummary>
+                    <AccordionDetails><ul>
+                        {Object.keys(data.event.ticket.meta).map(key => <li key={key}><T><strong>{key}</strong>: <code>{data.event.ticket.meta[key]}</code></T></li>)}
+                    </ul></AccordionDetails>
+                </Accordion>}
                 {data.event.ticket.status !== 1 ?
                     <Button variant="contained" color="primary" onClick={() => updateStatus({
                         variables: {event: id, ticket, status: 1}
