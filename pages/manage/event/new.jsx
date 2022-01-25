@@ -1,12 +1,11 @@
 import withApollo from '../../../components/apollo';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import Page from '../../../components/page';
 import Link from 'next/link';
 import Router from 'next/router';
-import { Button, Typography as T } from '@material-ui/core';
+import { Button, Typography as T, TextField } from '@mui/material';
 import { Formik, Form } from 'formik';
-import { TextField } from 'formik-material-ui';
 import { GET_ME } from '../../../lib/queries';
 import manageLayout from '../../../components/manage-layout';
 
@@ -51,8 +50,8 @@ function NewEvent() {
                 setErrors({slug: "Failed to add event."});
                 setSubmitting(false);
             }
-        }}>{({submitForm, isSubmitting, isValid}) => <Form>
-            <TextField style={{ verticalAlign: "top" }} name="slug" type="text" label="Slug" required />
+        }}>{({submitForm, isSubmitting, isValid, values, handleChange, touched, errors}) => <Form>
+            <TextField style={{ verticalAlign: "top" }} name="slug" type="text" label="Slug" required value={values.slug} onChange={handleChange} error={touched.slug && errors.slug} helperText={touched.slug && errors.slug} />
             <Button style={{verticalAlign: "top", marginLeft: "8px", marginTop: "12px"}} variant="outlined" disabled={isSubmitting || !isValid} onClick={submitForm}>Add</Button>
         </Form>}</Formik>
     </Page>

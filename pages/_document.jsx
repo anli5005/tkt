@@ -1,5 +1,5 @@
 import Document from 'next/document';
-import { ServerStyleSheets } from '@material-ui/core';
+import { ServerStyleSheets } from '@mui/styles';
 import { Children } from 'react';
 
 export default class TktDocument extends Document {

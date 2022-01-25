@@ -1,9 +1,9 @@
 import withApollo from '../../../../components/apollo';
 import Page from "../../../../components/page";
 import { useRouter } from 'next/router';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_TICKET_BY_ID } from '../../../../lib/queries';
-import { Typography as T, Container, Paper, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Button } from '@material-ui/core';
+import { Typography as T, Container, Paper, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Button } from '@mui/material';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Link from 'next/link';
 import { Fragment } from 'react';

@@ -1,6 +1,7 @@
 import Page from '../../components/page';
-import { Typography as T, makeStyles, Box } from '@material-ui/core';
+import { Typography as T, Box } from '@mui/material';
 import ManageLayout from '../../components/manage-layout';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
     box: {

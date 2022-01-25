@@ -1,12 +1,11 @@
 import withApollo from '../../../../components/apollo';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import Page from '../../../../components/page';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
-import { Button, Typography as T } from '@material-ui/core';
+import { Button, Typography as T, TextField } from '@mui/material';
 import { Formik, Form } from 'formik';
-import { TextField } from 'formik-material-ui';
 import manageLayout from '../../../../components/manage-layout';
 import { GET_EVENT } from '../../../../lib/queries';
 
@@ -57,8 +56,8 @@ function NewTicket() {
                 setErrors({ name: "Failed to add tickets." });
                 setSubmitting(false);
             }
-        }}>{({ submitForm, isSubmitting, isValid }) => <Form>
-            <TextField style={{ verticalAlign: "top" }} name="name" type="text" label="Name" required />
+        }}>{({ submitForm, isSubmitting, isValid, values, handleChange, touched, errors }) => <Form>
+            <TextField style={{ verticalAlign: "top" }} name="name" type="text" label="Name" required value={values.name} onChange={handleChange} error={touched.name && errors.name} helperText={touched.name && errors.name} />
             <Button style={{ verticalAlign: "top", marginLeft: "8px", marginTop: "12px" }} variant="outlined" disabled={isSubmitting || !isValid} onClick={submitForm}>Add</Button>
         </Form>}</Formik>
     </Page>

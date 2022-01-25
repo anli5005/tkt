@@ -1,14 +1,15 @@
-import withData from '../lib/next-apollo/withData';
-import { ApolloLink } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
+import withApollo from 'next-with-apollo';
+import { ApolloLink } from '@apollo/client/link/core';
+import { HttpLink } from '@apollo/client/link/http';
 import { parse } from 'cookie';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
 let makeSsrLink;
 if (typeof window === "undefined") {
     makeSsrLink = require("../lib/apollo-ssr");
 }
 
-export default withData((ctx) => {
+export default withApollo((ctx) => {
     let cookie = (ctx && ctx.req && ctx.req.headers.cookie) || (typeof document !== "undefined" && document.cookie);
     let token;
 
@@ -26,7 +27,14 @@ export default withData((ctx) => {
         })).concat(new HttpLink({
             credentials: "same-origin",
             uri: "/api"
-        }))
+        })),
+        cache: new InMemoryCache().restore(ctx.initialState)
     }
-    return config;
+    return new ApolloClient(config);
+}, {
+    render({Page, props}) {
+        return <ApolloProvider client={props.apollo}>
+            <Page {...props} />
+        </ApolloProvider>;
+    }
 });

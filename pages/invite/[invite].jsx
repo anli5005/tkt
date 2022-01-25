@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import withApollo from '../../components/apollo';
 import Router, { useRouter } from 'next/router';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_INVITE } from '../../lib/queries';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button } from '@mui/material';
 import gql from 'graphql-tag';
 import Link from 'next/link';
 import Page from '../../components/page';

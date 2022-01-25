@@ -1,9 +1,9 @@
 import withApollo from '../../../../components/apollo';
 import Page from '../../../../components/page';
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { GET_EVENT } from '../../../../lib/queries';
-import { Typography as T, Table, Paper, TableContainer, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
+import { Typography as T, Table, Paper, TableContainer, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material';
 import { Fragment } from 'react';
 import Link from 'next/link';
 import ManageLayout from '../../../../components/manage-layout';

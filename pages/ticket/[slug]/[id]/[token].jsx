@@ -1,13 +1,14 @@
 import withApollo from '../../../../components/apollo';
 import Page from "../../../../components/page";
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { GET_TICKET_BY_TOKEN } from '../../../../lib/queries';
-import { Typography as T, makeStyles } from '@material-ui/core';
+import { Typography as T } from '@mui/material';
 import Link from 'next/link';
 import Ticket from '../../../../components/ticket';
 import qrFactory from 'qrcode-generator';
 import Head from 'next/head';
+import { makeStyles } from '@mui/styles';
 import { useMemo } from 'react';
 
 const useStyles = makeStyles(theme => ({

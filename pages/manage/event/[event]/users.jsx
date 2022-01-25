@@ -1,8 +1,8 @@
 import withApollo from '../../../../components/apollo';
 import Page from '../../../../components/page';
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
-import { Typography as T } from '@material-ui/core';
+import { useQuery } from '@apollo/client';
+import { Typography as T } from '@mui/material';
 import { Fragment } from 'react';
 import { GET_EVENT_USERS } from '../../../../lib/queries';
 import Link from 'next/link';

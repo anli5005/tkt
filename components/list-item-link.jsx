@@ -1,4 +1,4 @@
-import { ListItem } from "@material-ui/core";
+import { ListItem } from "@mui/material";
 import Link from "next/link";
 
 export default function ListItemLink({href, as, ...props}) {

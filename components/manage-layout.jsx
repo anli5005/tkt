@@ -1,7 +1,8 @@
 import Brand from './brand';
-import { Drawer, Box, makeStyles, Divider, ButtonBase, Typography, Menu, MenuItem, ListItemIcon, List, ListItem, Select, InputLabel, FormControl, Hidden, IconButton } from '@material-ui/core';
+import { Drawer, Box, Divider, ButtonBase, Typography, Menu, MenuItem, ListItemIcon, List, ListItem, Select, InputLabel, FormControl, Hidden, IconButton } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { Fragment } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { GET_ME } from '../lib/queries';
 import withApollo from './apollo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,7 +10,6 @@ import { faChevronUp, faSignOutAlt, faHome, faPlusCircle, faBars } from '@fortaw
 import { useState } from 'react';
 import { useRef } from 'react';
 import signOut from '../lib/signout';
-import ListItemLink from './list-item-link';
 import Router, { useRouter } from 'next/router';
 
 const drawerPersistentWidth = "256px";

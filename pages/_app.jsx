@@ -1,7 +1,7 @@
 import { useEffect, Fragment, useMemo } from "react";
 import Head from "next/head";
-import { CssBaseline, ThemeProvider, createMuiTheme, useMediaQuery } from "@material-ui/core";
-import { orange } from "@material-ui/core/colors";
+import { CssBaseline, ThemeProvider, createMuiTheme, useMediaQuery } from "@mui/material";
+import { orange } from "@mui/material/colors";
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -31,11 +31,11 @@ export default function App({Component, pageProps}) {
         }
     }, []);
 
-    const prefersDarkMode = !useMediaQuery('(prefers-color-scheme: light)');
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     const theme = useMemo(() => createMuiTheme({
         palette: {
-            type: prefersDarkMode ? "dark" : "light",
+            mode: prefersDarkMode ? "dark" : "light",
             primary: orange
         },
         typography: {

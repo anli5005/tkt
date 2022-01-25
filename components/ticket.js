@@ -1,4 +1,5 @@
-import { Typography as T, Card, CardContent, CardHeader, CardMedia, makeStyles } from '@material-ui/core';
+import { Typography as T, Card, CardContent, CardHeader } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {

@@ -11,5 +11,10 @@ const server = new ApolloServer({typeDefs, resolvers, context({req}) {
     return context;
 }, uploads: false});
 
+const start = server.start();
+
 export const config = {api: {bodyParser: false}};
-export default server.createHandler({path: "/api"});
+export default async (req, res) => {
+    await start;
+    return server.createHandler({ path: "/api" })(req, res);
+}
