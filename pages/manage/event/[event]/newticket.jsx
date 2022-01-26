@@ -13,8 +13,8 @@ function NewTicket() {
     const {query: params} = useRouter();
 
     const [addTickets] = useMutation(gql`
-    mutation AddTicket($event: ID!, $tickets: [TicketInput!]!) {
-        createTickets(event: $event, tickets: $tickets) {
+    mutation AddTicket($event: ID!, $tickets: [TicketInput!]!, $send: Boolean!) {
+        createTickets(event: $event, tickets: $tickets, send: $send) {
             id
             meta
             email
@@ -58,10 +58,9 @@ function NewTicket() {
             try {
                 const ticket = {
                     meta: {name: values.name || undefined},
-                    email: values.email || undefined,
-                    send: !!values.send
+                    email: values.email || undefined
                 };
-                const { data: { createTickets } } = await addTickets({ variables: { event: params.event, tickets: [ticket] } });
+                const { data: { createTickets } } = await addTickets({ variables: { event: params.event, tickets: [ticket], send: !!values.send } });
                 if (!createTickets || createTickets.length === 0) {
                     throw new Error("Ticket is missing");
                 }
