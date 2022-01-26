@@ -36,6 +36,8 @@ function NewEvent() {
             const errors = {};
             if (!values.slug) {
                 errors.slug = "Required.";
+            } else if (!/^[a-zA-Z0-9-_+]+$/.test(slug)) {
+                errors.slug = "Slug contains invalid characters.";
             }
             return errors;
         }} onSubmit={async (values, {setSubmitting, setErrors}) => {
