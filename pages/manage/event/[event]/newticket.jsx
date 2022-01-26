@@ -1,5 +1,5 @@
 import withApollo from '../../../../components/apollo';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import Page from '../../../../components/page';
 import Link from 'next/link';
@@ -11,6 +11,7 @@ import { GET_EVENT } from '../../../../lib/queries';
 
 function NewTicket() {
     const {query: params} = useRouter();
+    const { data } = useQuery(GET_EVENT, { variables: { id: params.event } });
 
     const [addTickets] = useMutation(gql`
     mutation AddTicket($event: ID!, $tickets: [TicketInput!]!, $send: Boolean!) {
@@ -73,7 +74,13 @@ function NewTicket() {
         }}>{({ submitForm, isSubmitting, isValid, values, handleChange, handleBlur, touched, errors }) => <Form>
             <div style={{ marginTop: "12px" }}><TextField name="name" type="text" label="Name" value={values.name} onChange={handleChange} onBlur={handleBlur} error={!!(touched.name && errors.name)} helperText={touched.name && errors.name} /></div>
             <div style={{ marginTop: "12px" }}><TextField name="email" type="email" label="Email" value={values.email} onChange={handleChange} onBlur={handleBlur} error={!!(touched.email && errors.email)} helperText={touched.email && errors.email} /></div>
-            <div style={{ marginTop: "12px" }}><Switch name="send" value={values.send} onChange={handleChange} onBlur={handleBlur} /> Send an email to {values.email ? <strong>{values.email}</strong> : "the email address"}.</div>
+            <div style={{ marginTop: "12px", display: "flex" }}>
+                <Switch disabled={!data || !data.event || !data.event.canSendEmails} name="send" value={values.send} onChange={handleChange} onBlur={handleBlur} />
+                <div>
+                    <div style={{marginTop: "6px"}}>Send an email to {values.email ? <strong>{values.email}</strong> : "the email address"}.</div>
+                    {(!data || !data.event || !data.event.canSendEmails) && <T variant="caption">You'll need to request email permissions for your event.</T>}
+                </div>
+            </div>
             <Button style={{ verticalAlign: "top", marginTop: "12px" }} variant="outlined" disabled={isSubmitting || !isValid} onClick={submitForm}>Add</Button>
         </Form>}</Formik>
     </Page>

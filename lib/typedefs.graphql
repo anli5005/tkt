@@ -13,6 +13,7 @@ type FullEvent {
     users: [User!]!
     tickets: [Ticket!]!
     ticket(id: ID!): Ticket
+    canSendEmails: Boolean!
 }
 
 type Event {
