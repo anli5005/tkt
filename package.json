@@ -28,7 +28,7 @@
     "graphql": "^16.2.0",
     "graphql-tag": "^2.12.6",
     "handlebars": "^4.7.6",
-    "handlebars-loader": "^1.7.1",
+    "handlebars-loader": "^1.7.3",
     "jsonwebtoken": "^8.5.1",
     "markdown-it": "^12.3.2",
     "micro": "^9.3.4",
